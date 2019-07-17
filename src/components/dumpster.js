@@ -17,18 +17,28 @@ import { render } from "lit-html";
 const Dumpster = () => {
   const data = useStaticQuery(graphql`
     query {
-      model: allFile(relativePath: { eq: "container10.gltf" }) {
-          edges{
-              node {
-                  id
-                  publicURL
-              }
-          }
-      }
-    }
-  `)
-  
-  return  <model-viewer src={data.model.edges[0].node.publicURL} ar camera-controls alt="Model of Dumpster" background-color="#222" ios-src="/src/models/container10.usdz" quick-look-browsers= "safari chrome"/>
+        android_model: allFile(filter: {relativePath: {regex: "/(container10.glb)/"}}) {
+            edges {
+                node {
+                    id
+                    publicURL
+                }
+            }
+        }
+        ios_model: allFile(filter: {relativePath: {regex: "/(container10.usdz)/"}}) {
+            edges {
+                node {
+                    id
+                    publicURL
+                }
+            }
+        }
+     }
+    `)
+    const android_dumpster = data.android_model.edges[0].node.publicURL;
+    const ios_dumpster = data.ios_model.edges[0].node.publicURL;
+
+   return  <model-viewer src={android_dumpster} ar camera-controls alt="Model of Dumpster" background-color="#222" ios-src={ios_dumpster} quick-look-browsers= "safari chrome"/>
 }
 
 export default Dumpster
