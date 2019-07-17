@@ -1,3 +1,7 @@
+.btn-toolbar>*+* {
+  margin-left: .5em;
+}
+
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;

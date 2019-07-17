@@ -1,24 +1,33 @@
-import React from "react"
+import React, { useState } from "react"
 import { Link } from "gatsby"
-
+import Button from "react-bootstrap/Button"
+import ButtonToolBar from "react-bootstrap/ButtonToolbar"
 import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
 import '@google/model-viewer';
 import Dumpster from "../components/dumpster";
 
-const IndexPage = () => (
+const IndexPage = () => {
+  const [yards, setYards] = useState(10);
+return (  
   <Layout>
     <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
+    <h1>Hi Budget Dumpster</h1>
+    <p>Welcome to your AR POC.</p>
+    <p>Instructions</p>
     <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
       {/* <model-viewer src="src/models/container10.gltf" ar camera-controls alt="Model of Dumpster" background-color="#222" ios-src="src/models/container10.usdz" quick-look-browsers= "safari chrome"></model-viewer> */}
-      <Dumpster/>
+      <Dumpster modelId={yards}/>
     </div>
-    <Link to="/page-2/">Go to page 2</Link>
+    <ButtonToolBar>
+      <Button onClick={() => setYards(10)}>10 Yard</Button>
+      <Button onClick={() => setYards(15)}>15 Yard</Button>
+      <Button onClick={() => setYards(20)}>20 Yard</Button>
+      <Button onClick={() => setYards(30)}>30 Yard</Button>
+      <Button onClick={() => setYards(40)}>40 Yard</Button>
+    </ButtonToolBar>
   </Layout>
 )
-
+}
 export default IndexPage

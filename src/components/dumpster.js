@@ -12,10 +12,10 @@ import { useStaticQuery, graphql } from "gatsby"
  * - `useStaticQuery`: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-const Dumpster = () => {
+const Dumpster = (props) => {
   const data = useStaticQuery(graphql`
     query {
-        android_model: allFile(filter: {relativePath: {regex: "/(container10.glb)/"}}) {
+        android_model_10: allFile(filter: {relativePath: {regex: "/(containerModelx10.glb)/"}}) {
             edges {
                 node {
                     id
@@ -23,7 +23,71 @@ const Dumpster = () => {
                 }
             }
         }
-        ios_model: allFile(filter: {relativePath: {regex: "/(container10.usdz)/"}}) {
+        ios_model_10: allFile(filter: {relativePath: {regex: "/(containerModelx10.usdz)/"}}) {
+            edges {
+                node {
+                    id
+                    publicURL
+                }
+            }
+        }
+        android_model_15: allFile(filter: {relativePath: {regex: "/(containerModelx15.glb)/"}}) {
+            edges {
+                node {
+                    id
+                    publicURL
+                }
+            }
+        }
+        ios_model_15: allFile(filter: {relativePath: {regex: "/(containerModelx15.usdz)/"}}) {
+            edges {
+                node {
+                    id
+                    publicURL
+                }
+            }
+        }
+        android_model_20: allFile(filter: {relativePath: {regex: "/(containerModelx20.glb)/"}}) {
+            edges {
+                node {
+                    id
+                    publicURL
+                }
+            }
+        }
+        ios_model_20: allFile(filter: {relativePath: {regex: "/(containerModelx20.usdz)/"}}) {
+            edges {
+                node {
+                    id
+                    publicURL
+                }
+            }
+        }
+        android_model_30: allFile(filter: {relativePath: {regex: "/(containerModelx30.glb)/"}}) {
+            edges {
+                node {
+                    id
+                    publicURL
+                }
+            }
+        }
+        ios_model_30: allFile(filter: {relativePath: {regex: "/(containerModelx30.usdz)/"}}) {
+            edges {
+                node {
+                    id
+                    publicURL
+                }
+            }
+        }
+        android_model_40: allFile(filter: {relativePath: {regex: "/(containerModelx40.glb)/"}}) {
+            edges {
+                node {
+                    id
+                    publicURL
+                }
+            }
+        }
+        ios_model_40: allFile(filter: {relativePath: {regex: "/(containerModelx40.usdz)/"}}) {
             edges {
                 node {
                     id
@@ -33,10 +97,24 @@ const Dumpster = () => {
         }
      }
     `)
-    const android_dumpster = data.android_model.edges[0].node.publicURL;
-    const ios_dumpster = data.ios_model.edges[0].node.publicURL;
 
-   return  <model-viewer src={android_dumpster} ar camera-controls alt="Model of Dumpster" background-color="#222" ios-src={ios_dumpster} quick-look-browsers= "safari chrome"/>
+    const android_model_dict = {
+        10:data.android_model_10.edges[0].node.publicURL,
+        15:data.android_model_15.edges[0].node.publicURL,
+        20:data.android_model_20.edges[0].node.publicURL,
+        30:data.android_model_30.edges[0].node.publicURL,
+        40:data.android_model_40.edges[0].node.publicURL,     
+    }
+
+    const ios_model_dict = {
+        10:data.ios_model_10.edges[0].node.publicURL,
+        15:data.ios_model_15.edges[0].node.publicURL,
+        20:data.ios_model_20.edges[0].node.publicURL,
+        30:data.ios_model_30.edges[0].node.publicURL,
+        40:data.ios_model_40.edges[0].node.publicURL,
+    }
+
+   return  <model-viewer src={android_model_dict[props.modelId]} ar camera-controls alt="Model of Dumpster" background-color="#222" ios-src={ios_model_dict[props.modelId]} quick-look-browsers= "safari chrome"/>
 }
 
 export default Dumpster
