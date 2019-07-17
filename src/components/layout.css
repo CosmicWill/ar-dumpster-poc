@@ -1,5 +1,8 @@
-.btn-toolbar>*+* {
+.btn-toolbar>* {
   margin-left: .5em;
+}
+.btn-toolbar>* {
+  margin-top: .5em;
 }
 
 html {
