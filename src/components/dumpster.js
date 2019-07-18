@@ -23,7 +23,7 @@ const Dumpster = (props) => {
                 }
             }
         }
-        ios_model_10: allFile(filter: {relativePath: {regex: "/(containerModelx10.usdz)/"}}) {
+        ios_model_10: allFile(filter: {relativePath: {regex: "/(containerExpanded.usdz)/"}}) {
             edges {
                 node {
                     id
@@ -39,7 +39,7 @@ const Dumpster = (props) => {
                 }
             }
         }
-        ios_model_15: allFile(filter: {relativePath: {regex: "/(containerModelx15.usdz)/"}}) {
+        ios_model_15: allFile(filter: {relativePath: {regex: "/(containerUSDZx15.usdz)/"}}) {
             edges {
                 node {
                     id
@@ -55,7 +55,7 @@ const Dumpster = (props) => {
                 }
             }
         }
-        ios_model_20: allFile(filter: {relativePath: {regex: "/(containerModelx20.usdz)/"}}) {
+        ios_model_20: allFile(filter: {relativePath: {regex: "/(containerUSDZx20.usdz)/"}}) {
             edges {
                 node {
                     id
@@ -71,7 +71,7 @@ const Dumpster = (props) => {
                 }
             }
         }
-        ios_model_30: allFile(filter: {relativePath: {regex: "/(containerModelx30.usdz)/"}}) {
+        ios_model_30: allFile(filter: {relativePath: {regex: "/(containerUSDZx30.usdz)/"}}) {
             edges {
                 node {
                     id
@@ -87,7 +87,7 @@ const Dumpster = (props) => {
                 }
             }
         }
-        ios_model_40: allFile(filter: {relativePath: {regex: "/(containerModelx40.usdz)/"}}) {
+        ios_model_40: allFile(filter: {relativePath: {regex: "/(containerUSDZx40.usdz)/"}}) {
             edges {
                 node {
                     id
