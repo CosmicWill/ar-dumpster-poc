@@ -1,7 +1,7 @@
 import React from "react"
 
  const MapClient = require('@google/maps').createClient({
-     key: 'AIzaSyABZ-W1LP5XHasJEF0z3NMzRkkX5uP4_xA',
+     key: 'YOUR_API_KEY',
      Promise: Promise,
 
    });
