@@ -9,6 +9,8 @@ import '@google/model-viewer';
 import '@google/maps';
 import Dumpster from "../components/dumpster";
 import MapClient from "../components/mapClient";
+import MapComponent from "../components/mapComponent"
+import { async } from "q";
 
 const IndexPage = () => {
   const [yards, setYards] = useState(10);
@@ -22,6 +24,15 @@ return (
       {/* <model-viewer src="src/models/container10.gltf" ar camera-controls alt="Model of Dumpster" background-color="#222" ios-src="src/models/container10.usdz" quick-look-browsers= "safari chrome"></model-viewer> */}
       <Dumpster modelId={yards}/>
     </div> }
+     <div id = "map" style={{ height: 300, width: 300, marginBottom: `1.45rem` }}>
+      {/* <model-viewer src="src/models/container10.gltf" ar camera-controls alt="Model of Dumpster" background-color="#222" ios-src="src/models/container10.usdz" quick-look-browsers= "safari chrome"></model-viewer> */}
+      {/* <Dumpster modelId={yards}/> */}
+      Testing div
+      <MapComponent/>
+ 
+      {/* <IMG src = "../images/gatsby-icon.png" alt = "testing image" /> */}
+    </div> 
+    <script src="https://maps.googleapis.com/maps/api/js?key=API-KEY"></script>
 
     <ButtonToolBar>
       <Button onClick={() => setYards(10)}>10 Yard</Button>
@@ -32,5 +43,9 @@ return (
     </ButtonToolBar>
   </Layout>
 )
+
+
 }
+
+
 export default IndexPage
