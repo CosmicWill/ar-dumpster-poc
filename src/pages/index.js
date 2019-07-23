@@ -6,7 +6,9 @@ import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
 import '@google/model-viewer';
+import '@google/maps';
 import Dumpster from "../components/dumpster";
+import MapClient from "../components/mapClient";
 
 const IndexPage = () => {
   const [yards, setYards] = useState(10);
@@ -16,10 +18,11 @@ return (
     <h1>Hi Budget Dumpster</h1>
     <p>Welcome to your AR POC.</p>
     <p>Instructions</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
+    { <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
       {/* <model-viewer src="src/models/container10.gltf" ar camera-controls alt="Model of Dumpster" background-color="#222" ios-src="src/models/container10.usdz" quick-look-browsers= "safari chrome"></model-viewer> */}
       <Dumpster modelId={yards}/>
-    </div>
+    </div> }
+
     <ButtonToolBar>
       <Button onClick={() => setYards(10)}>10 Yard</Button>
       <Button onClick={() => setYards(15)}>15 Yard</Button>
