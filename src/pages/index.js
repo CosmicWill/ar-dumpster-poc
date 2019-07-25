@@ -27,12 +27,12 @@ return (
      <div id = "map" style={{ height: 300, width: 300, marginBottom: `1.45rem` }}>
       {/* <model-viewer src="src/models/container10.gltf" ar camera-controls alt="Model of Dumpster" background-color="#222" ios-src="src/models/container10.usdz" quick-look-browsers= "safari chrome"></model-viewer> */}
       {/* <Dumpster modelId={yards}/> */}
-      Testing div
+      Outline the larger area in which you want the dumpster place (e.g. your driveway)
       <MapComponent/>
  
       {/* <IMG src = "../images/gatsby-icon.png" alt = "testing image" /> */}
     </div> 
-    <script src="https://maps.googleapis.com/maps/api/js?key=API-KEY"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABZ-W1LP5XHasJEF0z3NMzRkkX5uP4_xA"></script>
 
     <ButtonToolBar>
       <Button onClick={() => setYards(10)}>10 Yard</Button>
