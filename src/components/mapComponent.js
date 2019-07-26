@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 
 import React from "react";
+import { Polygon } from "react-google-maps";
 const { compose, withProps } = require("recompose");
 const {
   withScriptjs,
@@ -41,19 +42,24 @@ const MapWithADrawingManager = compose(
           drawingModes: [
             google.maps.drawing.OverlayType.POLYGON,
           ],
+
+          
         },
-        circleOptions: {
-          fillColor: `#ffff00`,
-          fillOpacity: 1,
-          strokeWeight: 5,
-          clickable: true,
-          editable: true,
-          zIndex: 1,
-        },
+
       }}
+      onPolygonComplete={(value) => console.log(getPaths(value))}  
+
+      
     />
   </GoogleMap>
 );
+
+function getPaths(polygon){
+  var area = google.maps.geometry.spherical.computeArea(polygon.getPath());
+  var coordinates = (polygon.getPath().getArray());
+  var convertedArea = area * 10.7639;
+  console.log(convertedArea);
+}
 
 {/* <MapWithADrawingManager /> */}
 
