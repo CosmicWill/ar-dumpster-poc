@@ -12,6 +12,7 @@ const {
   GoogleMap,
 } = require("react-google-maps");
 const { DrawingManager } = require("react-google-maps/lib/components/drawing/DrawingManager");
+const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox");
 //const google = window.google;
 
 const MapWithADrawingManager = compose(
@@ -49,11 +50,32 @@ const MapWithADrawingManager = compose(
 
       }}
       onPolygonComplete={(value) => console.log(getPaths(value))}  
-
-
-      
     />
   </GoogleMap>
+  <SearchBox
+      ref={props.onSearchBoxMounted}
+      bounds={props.bounds}
+      controlPosition={google.maps.ControlPosition.TOP_LEFT}
+      onPlacesChanged={props.onPlacesChanged}
+    >
+      <input
+        type="text"
+        placeholder="Customized your placeholder"
+        style={{
+          boxSizing: `border-box`,
+          border: `1px solid transparent`,
+          width: `240px`,
+          height: `32px`,
+          marginTop: `27px`,
+          padding: `0 12px`,
+          borderRadius: `3px`,
+          boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+          fontSize: `14px`,
+          outline: `none`,
+          textOverflow: `ellipses`,
+        }}
+      />
+    </SearchBox>
   <ButtonToolBar>
   <Button onClick={checkModels}>Done</Button>
   <Button onClick={resetDrawing}>Reset</Button>
