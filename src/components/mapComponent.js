@@ -51,8 +51,7 @@ const MapWithADrawingManager = compose(
       }}
       onPolygonComplete={(value) => console.log(getPaths(value))}  
     />
-  </GoogleMap>
-  <SearchBox
+    <SearchBox
       ref={props.onSearchBoxMounted}
       bounds={props.bounds}
       controlPosition={google.maps.ControlPosition.TOP_LEFT}
@@ -76,6 +75,8 @@ const MapWithADrawingManager = compose(
         }}
       />
     </SearchBox>
+  </GoogleMap>
+  
   <ButtonToolBar>
   <Button onClick={checkModels}>Done</Button>
   <Button onClick={resetDrawing}>Reset</Button>
