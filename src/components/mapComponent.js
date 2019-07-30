@@ -4,7 +4,8 @@ import React from "react";
 import { Polygon } from "react-google-maps";
 import Button from "react-bootstrap/Button";
 import ButtonToolBar from "react-bootstrap/ButtonToolbar";
-const { compose, withProps } = require("recompose");
+const { compose, withProps, lifecycle } = require("recompose");
+const _ = require("lodash");
 const {
   withScriptjs,
   withGoogleMap,
@@ -22,14 +23,64 @@ const MapWithADrawingManager = compose(
     containerElement: <div style={{ height: `200px` }} />,
     mapElement: <div style={{ height: `100%` }} />,
   }),
+  lifecycle({
+    componentWillMount() {
+      const refs = {}
+
+      this.setState({
+        bounds: null,
+        center: {
+          lat: 34.02425, lng: -118.49300
+        },
+        markers: [],
+        onMapMounted: ref => {
+          refs.map = ref;
+        },
+        onBoundsChanged: () => {
+          this.setState({
+            bounds: refs.map.getBounds(),
+            center: refs.map.getCenter(),
+          })
+        },
+        onSearchBoxMounted: ref => {
+          refs.searchBox = ref;
+        },
+        onPlacesChanged: () => {
+          const places = refs.searchBox.getPlaces();
+          const bounds = new google.maps.LatLngBounds();
+
+          places.forEach(place => {
+            if (place.geometry.viewport) {
+              bounds.union(place.geometry.viewport)
+            } else {
+              bounds.extend(place.geometry.location)
+            }
+          });
+          const nextMarkers = places.map(place => ({
+            position: place.geometry.location,
+          }));
+          const nextCenter = _.get(nextMarkers, '0.position', this.state.center);
+
+          this.setState({
+            center: nextCenter,
+            markers: nextMarkers,
+          });
+          // refs.map.fitBounds(bounds);
+        },
+      })
+    },
+  }),
   withScriptjs,
   withGoogleMap
 )(props =>
   <div>
   <GoogleMap
+    ref={props.onMapMounted}
     defaultZoom={19}
-    defaultCenter={{ lat: 34.444937, lng: -119.8553888 }}
+    //defaultCenter={{ lat: 34.444937, lng: -119.8553888 }}
     defaultTilt = {0}
+    center={props.center}
+    onBoundsChanged={props.onBoundsChanged}
     defaultOptions={{
         disableDefaultUI: true,
         mapTypeId: 'satellite',//google.maps.MapTypeId.TERRAIN,
