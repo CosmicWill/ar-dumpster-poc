@@ -1,9 +1,10 @@
 /* eslint-disable no-undef */
-
 import React from "react";
 import { Polygon } from "react-google-maps";
 import Button from "react-bootstrap/Button";
 import ButtonToolBar from "react-bootstrap/ButtonToolbar";
+import { navigate } from '@reach/router'
+
 const { compose, withProps, lifecycle } = require("recompose");
 const _ = require("lodash");
 const {
@@ -12,9 +13,15 @@ const {
   Marker,
   GoogleMap,
 } = require("react-google-maps");
+
 const { DrawingManager } = require("react-google-maps/lib/components/drawing/DrawingManager");
 const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox");
 //const google = window.google;
+
+// should include logic for saving map return value here
+const onClickDynamic = () => {
+  navigate('/DynamicDumpsterPage')
+}
 
 const MapWithADrawingManager = compose(
   withProps({
@@ -74,6 +81,7 @@ const MapWithADrawingManager = compose(
   withGoogleMap
 )(props =>
   <div>
+  <div>
   <GoogleMap
     ref={props.onMapMounted}
     defaultZoom={19}
@@ -127,11 +135,12 @@ const MapWithADrawingManager = compose(
       />
     </SearchBox>
   </GoogleMap>
+  </div>
   
-  <ButtonToolBar>
-  <Button onClick={checkModels}>Done</Button>
-  <Button onClick={resetDrawing}>Reset</Button>
-  </ButtonToolBar>
+    <ButtonToolBar>
+    <Button className='mapButton' onClick={onClickDynamic}>Done</Button>
+    <Button className='mapButton' onClick={resetDrawing}>Reset</Button>
+    </ButtonToolBar>
   </div>
 );
 

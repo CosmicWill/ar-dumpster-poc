@@ -3,6 +3,18 @@
 }
 .btn-toolbar>* {
   margin-top: .5em;
+  margin-bottom: .5em;
+}
+
+.mapButton {
+margin-top: .5em;
+margin-bottom: .5em;
+margin-left: .5em;
+margin-right: .5em;
+}
+
+.linkMargin {
+  padding-top: .5em;
 }
 
 html {
