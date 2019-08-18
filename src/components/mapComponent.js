@@ -20,6 +20,8 @@ const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox
 
 // should include logic for saving map return value here
 const onClickDynamic = () => {
+  // Logic for returning mapped area
+  localStorage.setItem('drivewaySize','30')
   navigate('/DynamicDumpsterPage')
 }
 

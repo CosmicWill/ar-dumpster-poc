@@ -14,6 +14,20 @@ import { async } from "q";
 
 const DynamicDumpsterPage = () => {
   const [yards, setYards] = useState(10);
+  const local_d_size = parseInt(localStorage.getItem('drivewaySize'), 10);
+
+const renderButtonsArray = () => {
+  const dump_sizes = [10, 15, 20, 30, 40];
+  const render_dump_sizes = dump_sizes.filter(size=> size <= local_d_size);
+  return (
+    <ButtonToolBar>
+      {render_dump_sizes.map((value, index) => {
+        return <Button key={index} onClick={() => setYards(value)}>{value} Yard</Button>
+      })}
+    </ButtonToolBar>
+  )
+} 
+
 return (  
   <Layout>
     <SEO title="Home" />
@@ -27,14 +41,9 @@ return (
     <div>
       <Link to="/PolygonPage">Polygon Page</Link>
     </div>
-    <ButtonToolBar>
-      <Button onClick={() => setYards(10)}>10 Yard</Button>
-      <Button onClick={() => setYards(15)}>15 Yard</Button>
-      <Button onClick={() => setYards(20)}>20 Yard</Button>
-      <Button onClick={() => setYards(30)}>30 Yard</Button>
-      <Button onClick={() => setYards(40)}>40 Yard</Button>
-    </ButtonToolBar>
+    {renderButtonsArray()}
   </Layout>
+
 )
 
 
