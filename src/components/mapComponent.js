@@ -21,7 +21,17 @@ const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox
 // should include logic for saving map return value here
 const onClickDynamic = () => {
   // Logic for returning mapped area
-  localStorage.setItem('drivewaySize','30')
+  console.log(checkedArea)
+  const dump_sizes = [10, 15, 20, 30, 40];
+  const dump_areas = [200, 300, 500, 600, 650];
+  const render_dump_areas = dump_areas.filter(area=> area <= checkedArea);
+  const sizeNumber = render_dump_areas.length - 1
+  console.log(render_dump_areas)
+  console.log(sizeNumber)
+  const checkedSize = dump_sizes[sizeNumber]
+  console.log(checkedSize)
+
+  localStorage.setItem('drivewaySize',checkedSize)
   navigate('/DynamicDumpsterPage')
 }
 
@@ -110,8 +120,11 @@ const MapWithADrawingManager = compose(
         },
 
       }}
+      
       onPolygonComplete={(value) => console.log(getPaths(value))}  
+      onOverlayComplete={(value) => all_overlays.push(value)}
     />
+
     <SearchBox
       ref={props.onSearchBoxMounted}
       bounds={props.bounds}
@@ -146,11 +159,16 @@ const MapWithADrawingManager = compose(
   </div>
 );
 
+var checkedArea = Float32Array
+var all_overlays = []
+
 function getPaths(polygon){
   var area = google.maps.geometry.spherical.computeArea(polygon.getPath());
   var coordinates = (polygon.getPath().getArray());
   var convertedArea = area * 10.7639;
-  console.log(convertedArea);
+  checkedArea = convertedArea
+ // localStorage.setItem('drivewayArea', convertedArea)
+ // console.log(checkedArea);
 }
 
 function checkModels(){
@@ -159,6 +177,11 @@ function checkModels(){
 
 function resetDrawing(){
   console.log("reset")
+  for (var i=0; i < all_overlays.length; i++)
+  {
+    all_overlays[i].overlay.setMap(null);
+  }
+  all_overlays = [];
 //  DrawingManager.resetDrawing
 }
 
