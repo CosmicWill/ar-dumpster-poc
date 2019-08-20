@@ -25,13 +25,14 @@ const onClickDynamic = () => {
   const dump_sizes = [10, 15, 20, 30, 40];
   const dump_areas = [200, 300, 500, 600, 650];
   const render_dump_areas = dump_areas.filter(area=> area <= checkedArea);
-  const sizeNumber = render_dump_areas.length - 1
-  console.log(render_dump_areas)
-  console.log(sizeNumber)
-  const checkedSize = dump_sizes[sizeNumber]
+ // const sizeNumber = render_dump_areas.length - 1
+
+  const checkedSize = dump_sizes[render_dump_areas.length - 1]
   console.log(checkedSize)
 
+  if (typeof localStorage !== `undefined`) {
   localStorage.setItem('drivewaySize',checkedSize)
+  }
   navigate('/DynamicDumpsterPage')
 }
 
@@ -176,13 +177,15 @@ function checkModels(){
 }
 
 function resetDrawing(){
-  console.log("reset")
+
   for (var i=0; i < all_overlays.length; i++)
   {
     all_overlays[i].overlay.setMap(null);
   }
-  all_overlays = [];
-//  DrawingManager.resetDrawing
+
+  all_overlays = []
+  checkedArea = 0
+
 }
 
 {/* <MapWithADrawingManager /> */}

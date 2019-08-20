@@ -14,7 +14,10 @@ import { async } from "q";
 
 const DynamicDumpsterPage = () => {
   const [yards, setYards] = useState(10);
-  const local_d_size = parseInt(localStorage.getItem('drivewaySize'), 10);
+  let local_d_size
+  if (typeof localStorage !== `undefined`) {
+    local_d_size = parseInt(localStorage.getItem('drivewaySize'), 10);
+  }
 
 const renderButtonsArray = () => {
   const dump_sizes = [10, 15, 20, 30, 40];
