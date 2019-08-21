@@ -97,7 +97,7 @@ const MapWithADrawingManager = compose(
   <div>
   <GoogleMap
     ref={props.onMapMounted}
-    defaultZoom={19}
+    defaultZoom={20}
     //defaultCenter={{ lat: 34.444937, lng: -119.8553888 }}
     defaultTilt = {0}
     center={props.center}
