@@ -14,6 +14,10 @@ const {
   GoogleMap,
 } = require("react-google-maps");
 
+var drawingReset = false;
+var drawingDone = false;
+
+
 const { DrawingManager } = require("react-google-maps/lib/components/drawing/DrawingManager");
 const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox");
 //const google = window.google;
@@ -28,6 +32,7 @@ const onClickDynamic = () => {
  // const sizeNumber = render_dump_areas.length - 1
 
   const checkedSize = dump_sizes[render_dump_areas.length - 1]
+  
   console.log(checkedSize)
 
   if (typeof localStorage !== `undefined`) {
@@ -35,6 +40,7 @@ const onClickDynamic = () => {
   }
   navigate('/DynamicDumpsterPage')
 }
+const refs = {}
 
 const MapWithADrawingManager = compose(
   withProps({
@@ -45,7 +51,7 @@ const MapWithADrawingManager = compose(
   }),
   lifecycle({
     componentWillMount() {
-      const refs = {}
+     // const refs = {}
 
       this.setState({
         bounds: null,
@@ -64,6 +70,26 @@ const MapWithADrawingManager = compose(
         },
         onSearchBoxMounted: ref => {
           refs.searchBox = ref;
+        },
+        onPolygonComplete: () => {
+          console.log("complete");
+          const drawingManager = refs.drawingManager;
+          console.log(drawingManager);
+          drawingManager.setState({
+            drawingMode: null,
+          })
+          // drawingManager.__SECRET_DRAWING_MANAGER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.setState({
+          //     drawingMode: null,
+          //   })
+          // drawingManager.setState({
+          //   __SECRET_DRAWING_MANAGER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED: {
+          //     drawingMode: null,
+          //   },
+          // })
+
+        },
+        onDrawingManagerMounted: ref => {
+          refs.drawingManager = ref;
         },
         onPlacesChanged: () => {
           const places = refs.searchBox.getPlaces();
@@ -89,6 +115,10 @@ const MapWithADrawingManager = compose(
         },
       })
     },
+    componentDidUpdate() {
+      //potential code here for updating
+    },
+  
   }),
   withScriptjs,
   withGoogleMap
@@ -110,6 +140,7 @@ const MapWithADrawingManager = compose(
    <Marker key = "default" position = {{ lat: 34.024254, lng: -118.492986 }} />
     
     <DrawingManager
+      ref={props.onDrawingManagerMounted}
       defaultDrawingMode={google.maps.drawing.OverlayType.POLYGON}
       defaultOptions={{
         drawingControl: false,
@@ -122,8 +153,12 @@ const MapWithADrawingManager = compose(
 
       }}
       
-      onPolygonComplete={(value) => console.log(getPaths(value))}  
+     // onPolygonComplete={(value) => console.log(getPaths(value))}  
+      onPolygonComplete={ props.onPolygonComplete }  
+    //  onPolygonComplete={ setDrawingMode(null) }
       onOverlayComplete={(value) => all_overlays.push(value)}
+
+
     />
 
     <SearchBox
@@ -163,10 +198,14 @@ const MapWithADrawingManager = compose(
 var checkedArea = Float32Array
 var all_overlays = []
 
+
 function getPaths(polygon){
+  // drawingDone = true
   var area = google.maps.geometry.spherical.computeArea(polygon.getPath());
   var coordinates = (polygon.getPath().getArray());
   var convertedArea = area * 10.7639;
+//  const drawingManager = refs.drawingManager;
+//  drawingManager.drawingControl = true;
   checkedArea = convertedArea
  // localStorage.setItem('drivewayArea', convertedArea)
  // console.log(checkedArea);
@@ -178,6 +217,7 @@ function checkModels(){
 
 function resetDrawing(){
 
+  // drawingReset = true
   for (var i=0; i < all_overlays.length; i++)
   {
     all_overlays[i].overlay.setMap(null);
