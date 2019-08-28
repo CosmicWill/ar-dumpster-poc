@@ -23,7 +23,7 @@ const Dumpster = (props) => {
                 }
             }
         }
-        ios_model_10: allFile(filter: {relativePath: {regex: "/(containerExpanded.usdz)/"}}) {
+        ios_model_10: allFile(filter: {relativePath: {regex: "/(Dumpster10.usdz)/"}}) {
             edges {
                 node {
                     id
@@ -114,7 +114,7 @@ const Dumpster = (props) => {
         40:data.ios_model_40.edges[0].node.publicURL,
     }
 
-   return  <model-viewer src={android_model_dict[props.modelId]} ar camera-controls alt="Model of Dumpster" background-color="#222" ios-src={ios_model_dict[props.modelId]} quick-look-browsers= "safari chrome"/>
+   return  <model-viewer style={{height: '500px', width: '100%'}} src={android_model_dict[props.modelId]} ar camera-controls alt="Model of Dumpster" background-color="#222" ios-src={ios_model_dict[props.modelId]} quick-look-browsers= "safari chrome"/>
 }
 
 export default Dumpster

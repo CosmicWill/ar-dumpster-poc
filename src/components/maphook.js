@@ -1,7 +1,6 @@
 import React, { useState, forwardRef, useImperativeHandle } from 'react'
 import { GoogleMap, useLoadScript, StandaloneSearchBox, DrawingManager } from '@react-google-maps/api'
-import {Spinner, Container , Row, Col} from 'react-bootstrap'
-
+import {Spinner, Row, Col} from 'react-bootstrap'
 import { navigate } from 'gatsby'
 
 const libs = ['places', 'visualization', 'drawing', 'geometry']
@@ -68,19 +67,14 @@ const Map = forwardRef((props, ref) => {
 
     // should include logic for saving map return value here
     onClickDynamic() {
-      //const checkedArea = 550
       var area = maps.geometry.spherical.computeArea(polygonBounds);
       checkedArea= area * 10.7639
 
-      console.log(checkedArea)
-
       const dump_sizes = [10, 15, 20, 30, 40]
-      const dump_areas = [200, 300, 500, 600, 650]
+      const dump_areas = [105, 120, 165, 165, 165]
 
       const render_dump_areas = dump_areas.filter(area=> area <= checkedArea)
       const checkedSize = dump_sizes[render_dump_areas.length - 1]
-
-      console.log(checkedSize)
 
       if (typeof localStorage !== `undefined`) {
       localStorage.setItem('drivewaySize',checkedSize)
@@ -99,7 +93,6 @@ const Map = forwardRef((props, ref) => {
         if (typeof window !== `undefined`) {
            maps = window.google.maps
            mapRef = mapRefs
-          //console.log(google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(latitude1, longitude1), new google.maps.LatLng(latitude2, longitude2)))
         }
       }
     )
@@ -152,7 +145,7 @@ const Map = forwardRef((props, ref) => {
       </Col>
     </Row>
         
-        
+
         <DrawingManager
           options={drawingManagerOptions}
           onLoad={drawingManager => console.log(drawingManager)}

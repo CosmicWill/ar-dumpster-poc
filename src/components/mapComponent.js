@@ -3,20 +3,22 @@ import React from "react";
 import { Polygon } from "react-google-maps";
 import Button from "react-bootstrap/Button";
 import ButtonToolBar from "react-bootstrap/ButtonToolbar";
-import { navigate } from '@reach/router'
+import { navigate } from 'gatsby'
 
-const { compose, withProps, lifecycle } = require("recompose");
-const _ = require("lodash");
-const {
+import { compose, withProps, lifecycle } from "recompose"
+
+import {   
   withScriptjs,
   withGoogleMap,
   Marker,
   GoogleMap,
-} = require("react-google-maps");
+ } from "react-google-maps";
+
+
+const _ = require("lodash");
 
 const { DrawingManager } = require("react-google-maps/lib/components/drawing/DrawingManager");
 const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox");
-//const google = window.google;
 
 // should include logic for saving map return value here
 const onClickDynamic = () => {
@@ -40,9 +42,10 @@ const MapWithADrawingManager = compose(
   withProps({
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyABZ-W1LP5XHasJEF0z3NMzRkkX5uP4_xA&v=3.exp&libraries=geometry,drawing,places",
     loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `200px` }} />,
+    containerElement: <div style={{ height: `600px` }} />,
     mapElement: <div style={{ height: `100%` }} />,
   }),
+
   lifecycle({
     componentWillMount() {
       const refs = {}
@@ -85,7 +88,6 @@ const MapWithADrawingManager = compose(
             center: nextCenter,
             markers: nextMarkers,
           });
-          // refs.map.fitBounds(bounds);
         },
       })
     },
@@ -98,28 +100,26 @@ const MapWithADrawingManager = compose(
   <GoogleMap
     ref={props.onMapMounted}
     defaultZoom={20}
-    //defaultCenter={{ lat: 34.444937, lng: -119.8553888 }}
     defaultTilt = {0}
     center={props.center}
     onBoundsChanged={props.onBoundsChanged}
     defaultOptions={{
-        disableDefaultUI: true,
-        mapTypeId: 'satellite',//google.maps.MapTypeId.TERRAIN,
+        //disableDefaultUI: true,
+        mapTypeId: 'satellite',
       }}
   >
-   <Marker key = "default" position = {{ lat: 34.024254, lng: -118.492986 }} />
+   <Marker key="default" position={{ lat: 34.024254, lng: -118.492986 }} />
     
     <DrawingManager
       defaultDrawingMode={google.maps.drawing.OverlayType.POLYGON}
       defaultOptions={{
-        drawingControl: false,
+        drawingControl: true,
         drawingControlOptions: {
           position: google.maps.ControlPosition.TOP_CENTER,
           drawingModes: [
             google.maps.drawing.OverlayType.POLYGON,
           ],
         },
-
       }}
       
       onPolygonComplete={(value) => console.log(getPaths(value))}  
@@ -160,7 +160,7 @@ const MapWithADrawingManager = compose(
   </div>
 );
 
-var checkedArea = Float32Array
+var checkedArea
 var all_overlays = []
 
 function getPaths(polygon){
@@ -172,12 +172,7 @@ function getPaths(polygon){
  // console.log(checkedArea);
 }
 
-function checkModels(){
-  console.log("done")
-}
-
 function resetDrawing(){
-
   for (var i=0; i < all_overlays.length; i++)
   {
     all_overlays[i].overlay.setMap(null);
@@ -185,9 +180,6 @@ function resetDrawing(){
 
   all_overlays = []
   checkedArea = 0
-
 }
-
-{/* <MapWithADrawingManager /> */}
 
 export default MapWithADrawingManager
