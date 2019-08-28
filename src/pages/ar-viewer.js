@@ -10,7 +10,6 @@ import '@google/maps';
 import Dumpster from "../components/dumpster";
 import MapClient from "../components/mapClient";
 import MapComponent from "../components/mapComponent"
-import { async } from "q";
 
 const DynamicDumpsterPage = () => {
   const [yards, setYards] = useState(10);
@@ -29,9 +28,9 @@ const renderButtonsArray = () => {
       })}
     </ButtonToolBar>
   )
-} 
+}
 
-return (  
+return (
   <Layout>
     <SEO title="Home" />
     <h1>Hi Budget Dumpster</h1>
@@ -42,7 +41,7 @@ return (
       <Dumpster modelId={yards}/>
     </div> }
     <div>
-      <Link to="/PolygonPage">Polygon Page</Link>
+      <Link to="/">Reset</Link>
     </div>
     {renderButtonsArray()}
   </Layout>

@@ -25,6 +25,7 @@ const Map = forwardRef((props, ref) => {
   let polygonPath
   let checkedArea
   let mapRef
+  let polygonBounds
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyABZ-W1LP5XHasJEF0z3NMzRkkX5uP4_xA",
@@ -33,7 +34,7 @@ const Map = forwardRef((props, ref) => {
 
 
   const onPolygonComplete = (polygon) => {
-    const polygonBounds = polygon.getPath()
+    polygonBounds = polygon.getPath()
     let bounds = []
     for (let i = 0; i < polygonBounds.length; i++) {
       let point = {lat: polygonBounds.getAt(i).lat(), lng: polygonBounds.getAt(i).lng()}
@@ -67,11 +68,16 @@ const Map = forwardRef((props, ref) => {
 
     // should include logic for saving map return value here
     onClickDynamic() {
-      const checkedArea = 550
-      const dump_sizes = [10, 15, 20, 30, 40];
-      const dump_areas = [200, 300, 500, 600, 650];
+      //const checkedArea = 550
+      var area = maps.geometry.spherical.computeArea(polygonBounds);
+      checkedArea= area * 10.7639
 
-      const render_dump_areas = dump_areas.filter(area=> area <= checkedArea);
+      console.log(checkedArea)
+
+      const dump_sizes = [10, 15, 20, 30, 40]
+      const dump_areas = [200, 300, 500, 600, 650]
+
+      const render_dump_areas = dump_areas.filter(area=> area <= checkedArea)
       const checkedSize = dump_sizes[render_dump_areas.length - 1]
 
       console.log(checkedSize)
@@ -79,8 +85,7 @@ const Map = forwardRef((props, ref) => {
       if (typeof localStorage !== `undefined`) {
       localStorage.setItem('drivewaySize',checkedSize)
       }
-
-      navigate('/DynamicDumpsterPage')
+      navigate('/ar-viewer')
     }
   }))
   
@@ -102,7 +107,7 @@ const Map = forwardRef((props, ref) => {
     return (
       <GoogleMap
         mapContainerStyle={{maxWidth: `100%`, height:'600px'}}
-        zoom={21}
+        zoom={23}
         center={center}
         onLoad={onLoad}
         options={{
@@ -134,9 +139,9 @@ const Map = forwardRef((props, ref) => {
               fontSize: `16px`,
               outline: `none`,
               textOverflow: `ellipses`,
-              position: 'absolute',
-              top: '10px',
-              left: '32px',
+              // position: 'absolute',
+              // top: '10px',
+              // left: '32px',
             }}
           />
         </StandaloneSearchBox>      

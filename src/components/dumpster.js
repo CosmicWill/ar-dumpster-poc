@@ -47,7 +47,7 @@ const Dumpster = (props) => {
                 }
             }
         }
-        android_model_20: allFile(filter: {relativePath: {regex: "/(containerModelx20.glb)/"}}) {
+        android_model_20: allFile(filter: {relativePath: {regex: "/(dumpster20.glb)/"}}) {
             edges {
                 node {
                     id
