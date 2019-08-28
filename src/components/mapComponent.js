@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import React from "react";
-import { Polygon } from "react-google-maps";
+import { Polygon, Polyline } from "react-google-maps";
 import Button from "react-bootstrap/Button";
 import ButtonToolBar from "react-bootstrap/ButtonToolbar";
 import { navigate } from '@reach/router'
@@ -75,6 +75,7 @@ const MapWithADrawingManager = compose(
           console.log("complete");
           const drawingManager = refs.drawingManager;
           console.log(drawingManager);
+          console.log(drawingManager.getDrawingMode());
           drawingManager.setState({
             drawingMode: null,
           })
@@ -142,6 +143,7 @@ const MapWithADrawingManager = compose(
     <DrawingManager
       ref={props.onDrawingManagerMounted}
       defaultDrawingMode={google.maps.drawing.OverlayType.POLYGON}
+
       defaultOptions={{
         drawingControl: false,
         drawingControlOptions: {
@@ -153,9 +155,11 @@ const MapWithADrawingManager = compose(
 
       }}
       
-     // onPolygonComplete={(value) => console.log(getPaths(value))}  
-      onPolygonComplete={ props.onPolygonComplete }  
-    //  onPolygonComplete={ setDrawingMode(null) }
+      onPolygonComplete={(value) => console.log(getPaths(value))}  
+      //onPolygonComplete = { this.setDrawingMode(null) }
+      //onPolygonComplete={ props.onPolygonComplete }  
+      // onPolylineComplete ={(value) => all_overlays.push(value)}  
+      //onPolylineComplete ={console.log("polyline complete")}  
       onOverlayComplete={(value) => all_overlays.push(value)}
 
 
@@ -218,6 +222,7 @@ function checkModels(){
 function resetDrawing(){
 
   // drawingReset = true
+  console.log(all_overlays)
   for (var i=0; i < all_overlays.length; i++)
   {
     all_overlays[i].overlay.setMap(null);
