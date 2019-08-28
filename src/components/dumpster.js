@@ -23,7 +23,7 @@ const Dumpster = (props) => {
                 }
             }
         }
-        ios_model_10: allFile(filter: {relativePath: {regex: "/(Dumpster10.usdz)/"}}) {
+        ios_model_10: allFile(filter: {relativePath: {regex: "/(containerExpanded.usdz)/"}}) {
             edges {
                 node {
                     id
@@ -47,7 +47,7 @@ const Dumpster = (props) => {
                 }
             }
         }
-        android_model_20: allFile(filter: {relativePath: {regex: "/(dumpster20.glb)/"}}) {
+        android_model_20: allFile(filter: {relativePath: {regex: "/(containerModelx20.glb)/"}}) {
             edges {
                 node {
                     id
